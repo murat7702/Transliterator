@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="canonical" href="https://html5-templates.com/" />
+	<title>RU-ENG Transliterator</title>
+	<meta name="description" content="Simple HTML5 Page layout template with header, footer, sidebar etc.">
+	<link rel="stylesheet" href="style.css">
+	</head>
+
+<body>
+	<header>
+		<div id="head">Транслитерация для загранпаспорта</div>
+	</header>
+	<section>
+		<strong>Новые правила транслитерации для загранпаспортов в РФ</strong>
+	</section>
+	<section id="pageContent">
+		<main role="main">
+			<article>
+				<h2>В России с сентября 2014 г. вступили в силу новые правила транслитерации с кириллицы на латиницу
+					имён и фамилий в загранпаспортах.</h2>
+				<p>Основные изменения:
+				<ul class="main_ul"><br>
+					<li>
+						буква «ц» в именах и фамилиях передаётся сочетанием «ts» (раньше было «tc»);
+					</li>
+					<li>
+						в гласных «я», «ю», «е», для перевода которых использовалась латинская «y» <br> и вторая
+						соответствующая буква (например, «я» = «ya», «ю» = «yu») теперь будет «i»;
+					</li>
+					<li>
+						буква «й» стала переводиться с помощью «i» (раньше было «y»);
+					</li>
+					<li>
+						введена буква «ъ», которая передаётся сочетанием «ie».
+					</li>
+				</ul>
+				</p>
+			</article>
+			<article>
+				<h2>Хотите проверить как должны писаться ваши имя и фамилия в загранпаспорте по новым правилам?</h2>
+				<p>Для этого вам нужно ввести ваше имя (можно ФИО целиком) в представленную форму и нажать на кнопку
+					«Transliterate».</p>
+			</article>
+
+		</main>
+		<aside>
+			<div>
+
+				<strong id="tr">&#160TRANSLITERATOR</strong> <br><br>
+
+				<label> <b>&#160Step 1:</b> Enter name in Russian:</label><br>
+
+				<div id="centerButton">
+
+					<input type="text" id="field1" value=""><br>
+					<button class="btn"  id="ok">OK</button>
+					<button class="btn"  id="clear">Clear</button> <br><br>
+
+
+				</div>
+
+
+
+				<p id="input">...</p> <br>
+
+
+
+				<label> <b>&#160Step 2:</b> </label>
+				<button class="btn" id="Transliterate"><b>&#160&#160Transliterate&#160&#160 </b> </button> <br><br>
+
+
+
+				<p id="output">...</p>
+			</div>
+		</aside>
+	</section>
+	<footer>
+		<p>&copy; 2022 | <a href="https://html5-templates.com/" target="_blank" rel="nofollow">HTML5 Templates</a></p>
+		<address>
+			Contact author: <a href="mailto:mhabibullin@yyahoo.com">mhabibullin@yahoo.com</a>
+		</address>
+	</footer>
+
+	    <!--Script here-->
+
+		<script>
+
+			var name = ""
+	
+	
+			document.getElementById("ok").addEventListener("click", myFunction);
+	
+			function myFunction() {
+				var x = document.getElementById("field1").value
+	
+				if (x == "") {
+					return;
+				} else { name = x; }
+	
+				document.getElementById("input").innerHTML = name;
+	
+			}
+	
+			document.getElementById("Transliterate").addEventListener("click", myFunction1);
+	
+			function myFunction1() {
+	
+				if (name=="") {return}
+	
+				let engname = transliterate(name);
+	
+				document.getElementById("output").innerHTML = engname;
+			}
+	
+			function transliterate(input) {
+				cyrillic = new Array('А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ы', 'Ъ', 'Ь', 'Э', 'Ю', 'Я', 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ы', 'ъ', 'ь', 'э', 'ю', 'я');
+				latin = new Array("A", "B", "V", "G", "D", "E", "E", "Zh", "Z", "I", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "F", "Kh", "Ts", "Ch", "Sh", "Shch", "Y", "Ie", "", "E", "Iu", "Ia", "a", "b", "v", "g", "d", "e", "e", "zh", "z", "i", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "kh", "ts", "ch", "sh", "shch", "y", "ie", "", "e", "iu", "ia");
+				var output = "";
+	
+				for (var i = 0; i < input.length; i++) {
+					b = false;
+					for (var j = 0; j < cyrillic.length; j++) {
+						if (input.charAt(i) == cyrillic[j]) { output += latin[j]; b = true; continue; }
+					}
+					if (!b) { output += input.charAt(i); }
+				}
+	
+				return output
+	
+			}
+	
+			document.getElementById("clear").addEventListener("click", myFunction2)
+			
+			function myFunction2() {
+	
+				document.getElementById("field1").value = "";
+				name = "..."
+				document.getElementById("input").innerHTML = "...";
+				document.getElementById("output").innerHTML = "...";
+	
+			}
+	
+	
+	
+	
+	
+	
+	
+		</script>
+	
+
+
+</body>
+
+</html>
